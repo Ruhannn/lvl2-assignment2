@@ -45,5 +45,5 @@ const ProductSchema: Schema = new Schema({
   variants: { type: [VariantSchema], required: true },
   inventory: { type: InventorySchema, required: true },
 });
-
+ProductSchema.index({ name: "text", description: "text", tags: "text" });
 export default mongoose.model<IProduct>("Product", ProductSchema);

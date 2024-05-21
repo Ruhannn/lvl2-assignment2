@@ -81,3 +81,21 @@ export const updateProduct = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: (error as Error).message });
   }
 };
+// delete product
+export const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.productId);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Product deleted successfully!",
+      data: null,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: (error as Error).message });
+  }
+};

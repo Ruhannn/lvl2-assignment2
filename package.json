@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:prod": "node ./dist/server.js",
-    "start:dev": "npx ts-node-dev --respawn --transpile-only src/server.ts",
+    "start:prod": "node ./dist/index.js",
+    "start:dev": "npx ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "lint": "npx eslint src --ignore-pattern .ts",
     "lint:fix": "npx eslint src --fix",

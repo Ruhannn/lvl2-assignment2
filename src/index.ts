@@ -12,15 +12,18 @@ const PORT = process.env.PORT || 5001;
 // ROUTES
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+// home
+app.get("/", (req, res) => {
+  res.send("i love ayaka");
+});
+// unknown routes
 app.use((req, res, next) => {
   res.status(404).json({
     success: false,
     message: "Route not found",
   });
 });
-app.get("/", (req, res) => {
-  res.send("i love ayaka");
-});
+
 // error handling
 app.use(
   (

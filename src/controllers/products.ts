@@ -2,17 +2,47 @@ import { Request, Response } from "express";
 import Product from "../models/Product";
 import { productSchema } from "../middleware/validation";
 
-// get all products
+// get all products + search
 export const getProducts = async (req: Request, res: Response) => {
   try {
+    const { searchTerm } = req.query;
+    if (searchTerm) {
+      if (typeof searchTerm !== "string" || searchTerm.trim() === "") {
+        return res.status(400).json({
+          success: false,
+          message: "Please provide a valid search term.",
+        });
+      }
+      // create the search query
+      const searchQuery = { $text: { $search: searchTerm.trim() } };
+      // fetch products matching the term
+      const products = await Product.find(searchQuery);
+      // check if no products are found
+      if (products.length === 0) {
+        return res.status(404).json({
+          success: true,
+          message: "No products found matching the search term.",
+          data: [],
+        });
+      }
+      // return the found products
+      return res.status(200).json({
+        success: true,
+        message: `Products matching search term fetched successfully!`,
+        data: products,
+      });
+    }
+    // Fetch all products
     const products = await Product.find();
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Products fetched successfully!",
       data: products,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: (error as Error).message });
+    return res
+      .status(500)
+      .json({ success: false, message: (error as Error).message });
   }
 };
 // get single product

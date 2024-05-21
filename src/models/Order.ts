@@ -6,7 +6,6 @@ export interface IOrder extends Document {
   price: number;
   quantity: number;
 }
-
 const OrderSchema: Schema = new Schema({
   email: { type: String, required: true },
   productId: {

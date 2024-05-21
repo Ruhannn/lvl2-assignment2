@@ -1,3 +1,4 @@
+// @typescript-eslint/no-unused-vars
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/db";
@@ -17,7 +18,7 @@ app.get("/", (req, res) => {
   res.send("i love ayaka");
 });
 // unknown routes
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: "Route not found",
@@ -25,18 +26,11 @@ app.use((req, res, next) => {
 });
 
 // error handling
-app.use(
-  (
-    err: any,
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    res
-      .status(err.status || 500)
-      .json({ success: false, message: err.message });
-  }
-);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+app.use((err: any, req: express.Request, res: express.Response) => {
+  res.status(err.status || 500).json({ success: false, message: err.message });
+});
 app.listen(PORT, () => {
+  // eslint-disable-next-line no-console
   console.log(`Love ayaka on ${PORT}`);
 });

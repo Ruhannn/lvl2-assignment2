@@ -64,6 +64,11 @@ The server will start running on `http://localhost:5001`.
 
 - **GET /api/orders?email=<user-email>**: Retrieve orders by user email.
 
+ You can test all of them by
+```bash
+npm test
+```
+
 ## Built With
 
 - Node.js

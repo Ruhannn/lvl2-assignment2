@@ -1,7 +1,7 @@
 ### Prerequisites
 Before you begin, ensure you have
 - [Node.js](https://nodejs.org/)
-- [MongoDB](https://www.mongodb.com/) installed and running locally
+- [MongoDB](https://www.mongodb.com/)
 
 ### Installation
 
